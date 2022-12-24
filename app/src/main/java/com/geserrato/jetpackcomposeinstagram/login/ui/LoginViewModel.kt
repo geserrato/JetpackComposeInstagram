@@ -7,11 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.geserrato.jetpackcomposeinstagram.login.domain.LoginUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
-
-    private val loginUseCase = LoginUseCase()
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
@@ -41,7 +42,6 @@ class LoginViewModel : ViewModel() {
             _isLoading.value = true
             val result = loginUseCase(email.value!!, password.value!!)
             if (result) {
-                // TODO Navegar al la siguiente pantalla
                 Log.i("geserrato", "Login successfully")
             }
             _isLoading.value = false

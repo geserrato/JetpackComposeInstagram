@@ -28,7 +28,7 @@ import com.geserrato.jetpackcomposeinstagram.R
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel) {
-    val isLoading: Boolean by loginViewModel.isLoading.observeAsState(initial = true)
+    val isLoading: Boolean by loginViewModel.isLoading.observeAsState(initial = false)
 
     Box(
         modifier = Modifier
