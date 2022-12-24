@@ -22,6 +22,9 @@ class LoginViewModel : ViewModel() {
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     fun onLoginChanged(email: String, password: String) {
         _email.value = email
         _password.value = password
@@ -35,11 +38,13 @@ class LoginViewModel : ViewModel() {
 
     fun onLoginSelected() {
         viewModelScope.launch {
+            _isLoading.value = true
             val result = loginUseCase(email.value!!, password.value!!)
             if (result) {
                 // TODO Navegar al la siguiente pantalla
                 Log.i("geserrato", "Login successfully")
             }
+            _isLoading.value = false
         }
     }
 }
